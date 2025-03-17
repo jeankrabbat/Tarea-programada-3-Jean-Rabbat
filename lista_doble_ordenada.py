@@ -22,32 +22,33 @@ class ListaDobleOrdenada:
             current.setNext(nuevo_nodo)
 
     def eliminar(self, posicion):
-        if self.__list is None:
-            print("La lista está vacía.")
-            return
-        if posicion == 0:
-            self.__list = self.__list.getNext()
-            if self.__list is not None:
-                self.__list.setPrev(None)
-            return
-        current = self.__list
-        for i in range(posicion - 1):
-            if current.getNext() is None:
-                print(f"Posición fuera de rango. La lista tiene {i + 1} elementos.")
+            if self.__list is None:
+                print("La lista está vacía, por lo tanto, no hay nada que borrar...")
                 return
-            current = current.getNext()
-        if current.getNext() is None:
-            print(f"Posición fuera de rango. La lista tiene {posicion} elementos.")
-            return
-        current.getNext().setPrev(current.getPrev())
-        current.setNext(current.getNext().getNext())
-        print(f"Elemento en la posición {posicion} ha sido eliminado.")
+            if posicion == 0:
+                self.__list = self.__list.getNext()
+                print(f"Elemento en la posición {posicion} ha sido eliminado.")
+                return
+            current = self.__list
+            for i in range(posicion - 1):
+                if current.getNext() is None:
+                    print(f"La posición que indicaste está fuera del rango, la lista tiene {i + 1} elementos.")
+                    return
+                current = current.getNext()
+            if current.getNext() is None:
+                print(f"La posición que indicaste está fuera del rango {posicion} elementos.")
+                return
+            current.setNext(current.getNext().getNext())
+            print(f"Elemento en la posición {posicion} ha sido eliminado.")
 
     def imprimir(self):
         current = self.__list
-        while current is not None:
+        count = 0
+        while current is not None:  # Recorre todos los elementos de la lista
             print(current.getData())
             current = current.getNext()
+            count += 1
+        print(f"Total de personas en la lista: {count}")
 
     def buscar_por_edad(self, edad):
         if self.__list is None:
