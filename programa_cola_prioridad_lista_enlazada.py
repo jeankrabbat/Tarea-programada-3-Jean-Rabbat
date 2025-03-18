@@ -9,11 +9,8 @@ def main():
         print("\nMenu cola de prioridad:")
         print("1. Agregar una persona a la cola")
         print("2. Imprimir personas en la cola")
-        print("3. Eliminar persona de la cola")
-        print("4. Buscar persona por edad")
-        print("5. Buscar persona por nombre")
-        print("6. Buscar persona por apellido")
-        print("7. Salir del programa")
+        print("3. Sacar persona de la cola")
+        print("4. Salir del programa")
 
         opcion = input("Seleccione una de las opciones: ")
 
@@ -24,30 +21,14 @@ def main():
             try:
                 edad = int(input("Ingrese la edad: "))
                 persona = Persona(nombre, apellido1, apellido2, edad)
-                cola.insercion(persona)
+                cola.enqueue(persona)
             except ValueError:
                 print("Edad inválida. Por favor ingrese un número.")
         elif opcion == "2":
             cola.imprimir()
         elif opcion == "3":
-            try:
-                posicion = int(input("Ingrese la posicion a borrar: "))
-                cola.eliminar(posicion)
-            except ValueError:
-                print("Posición inválida. Por favor ingrese un número.")
+            cola.dequeue()
         elif opcion == "4":
-            try:
-                edad = int(input("Ingrese la edad de la persona a buscar: "))
-                cola.buscar_por_edad(edad)
-            except ValueError:
-                print("Edad inválida. Por favor ingrese un número.")
-        elif opcion == "5":
-            nombre = input("Ingrese el nombre a buscar: ")
-            cola.buscar_por_nombre(nombre)
-        elif opcion == "6":
-            apellido = input("Ingrese el apellido a buscar: ")
-            cola.buscar_por_apellido(apellido)
-        elif opcion == "7":
             print("Saliendo del programa...")
             break
         else: 

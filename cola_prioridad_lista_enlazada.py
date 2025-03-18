@@ -4,7 +4,7 @@ class ColaPrioridad:
     def __init__(self):
         self.__list = None
 
-    def insercion(self, persona):
+    def enqueue(self, persona):
         nuevo_nodo = nodo(persona)
         if persona.getEdad() >= 65:
             if self.__list is None or self.__list.getData().getEdad() < 65:
@@ -25,65 +25,20 @@ class ColaPrioridad:
                     current = current.getNext()
                 current.setNext(nuevo_nodo)
 
-    def eliminar(self, posicion):
-            if self.__list is None:
-                print("La lista está vacía, por lo tanto, no hay nada que borrar...")
-                return
-            if posicion == 0:
-                self.__list = self.__list.getNext()
-                print(f"Elemento en la posición {posicion} ha sido eliminado.")
-                return
-            current = self.__list
-            for i in range(posicion - 1):
-                if current.getNext() is None:
-                    print(f"La posición que indicaste está fuera del rango, la lista tiene {i + 1} elementos.")
-                    return
-                current = current.getNext()
-            if current.getNext() is None:
-                print(f"La posición que indicaste está fuera del rango {posicion} elementos.")
-                return
-            current.setNext(current.getNext().getNext())
-            print(f"Elemento en la posición {posicion} ha sido eliminado.")
-
+    def dequeue(self):
+        if self.__list is None:
+            print("La cola está vacía, por lo tanto, no hay nada que sacar...")
+            return None
+        persona_atendida = self.__list.getData()
+        self.__list = self.__list.getNext()
+        print(f"Persona atendida: {persona_atendida}")
+        return persona_atendida
 
     def imprimir(self):
         current = self.__list
         count = 0
-        while current is not None:  # Recorre todos los elementos de la lista
+        while current is not None:
             print(current.getData())
             current = current.getNext()
             count += 1
         print(f"Total de personas en la lista: {count}")
-
-    def buscar_por_edad(self, edad):
-        current = self.__list
-        found = False
-        while current is not None: #Recorre todos los elementos de la lista
-            if current.getData().getEdad() == edad:
-                print(current.getData())
-                found = True
-            current = current.getNext()
-        if not found:
-            print(f"Nadie tiene la edad {edad}")
-
-    def buscar_por_nombre(self, nombre):
-        current = self.__list
-        found = False
-        while current is not None:
-            if nombre in current.getData().getNombre():
-                print(current.getData())
-                found = True
-            current = current.getNext()
-        if not found:
-            print(f"Nadie tiene el nombre que contiene {nombre}")
-
-    def buscar_por_apellido(self, apellido):
-        current = self.__list
-        found = False
-        while current is not None:
-            if apellido in current.getData().getApellido1() or apellido in current.getData().getApellido2():
-                print(current.getData())
-                found = True
-            current = current.getNext()
-        if not found:
-            print(f"Nadie tiene el apellido que contiene {apellido}")
